@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm -rf /var/www/html
+git clone ${GITADDR} /var/www/html
+rm -rf /var/www/html/.git
+
+/usr/local/bin/run-nginx
