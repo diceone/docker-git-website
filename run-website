@@ -1,7 +1,14 @@
 #!/bin/bash
 
-rm -rf /var/www/html
-git clone ${GITADDR} /var/www/html
-rm -rf /var/www/html/.git
+mkdir /tmp/git
+git clone ${GITADDR} /tmp/git
+rsync -av --exclude=.git /tmp/git/ /var/www/html/
+cd /tmp/git
 
-/usr/local/bin/run-nginx
+/usr/local/bin/run-nginx &
+
+while :; do
+  git pull
+  rsync -av --exclude=.git /tmp/git/ /var/www/html/
+  sleep 300
+done
