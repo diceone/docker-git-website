@@ -1,10 +1,10 @@
-FROM vger/nginx:latest
+FROM nginx:alpine
 
-MAINTAINER <docker@vger.name>
-
-RUN apt-get update && apt-get install -y \
-  git
-
+RUN apk add openjdk8
+RUN apk add git
+RUN apk add rsync
+RUN apk add bash
+RUN mkdir -p /usr/local/bin/
 COPY run-website /usr/local/bin/run-website
 RUN chmod +x /usr/local/bin/run-website
 
